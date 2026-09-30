@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Registration Portal</title>
+
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(
+            135deg,
+            #fdf2f8,
+            #f3e8ff,
+            #ede9fe
+        );
+        color: #27233a;
+        line-height: 1.6;
+    }
+
+
+    /* Main Container */
+
+    .container {
+        width: 92%;
+        max-width: 1150px;
+        margin: 35px auto;
+    }
+
+
+    /* Header */
+
+    .header {
+        position: relative;
+        overflow: hidden;
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #c026d3,
+            #ec4899
+        );
+
+        color: white;
+
+        padding: 55px 30px;
+
+        text-align: center;
+
+        border-radius: 25px;
+
+        margin-bottom: 28px;
+
+        box-shadow:
+            0 15px 35px rgba(126, 34, 206, 0.25);
+    }
+
+
+    .header::before {
+        content: "";
+
+        position: absolute;
+
+        width: 220px;
+        height: 220px;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border-radius: 50%;
+
+        top: -100px;
+        left: -70px;
+    }
+
+
+    .header::after {
+        content: "";
+
+        position: absolute;
+
+        width: 280px;
+        height: 280px;
+
+        background: rgba(255, 255, 255, 0.10);
+
+        border-radius: 50%;
+
+        bottom: -160px;
+        right: -80px;
+    }
+
+
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .header h1 {
+        font-size: 40px;
+        margin-bottom: 12px;
+        letter-spacing: 0.5px;
+    }
+
+
+    .header p {
+        font-size: 17px;
+        opacity: 0.95;
+    }
+
+
+    /* Cards */
+
+    .card {
+        background: rgba(255, 255, 255, 0.94);
+
+        padding: 32px;
+
+        margin-bottom: 28px;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 10px 30px rgba(91, 33, 182, 0.09);
+
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+
+    .card h2 {
+        color: #7c3aed;
+
+        margin-bottom: 25px;
+
+        font-size: 24px;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .card h2::after {
+        content: "";
+
+        flex: 1;
+
+        height: 2px;
+
+        background: linear-gradient(
+            to right,
+            #d8b4fe,
+            transparent
+        );
+
+        margin-left: 8px;
+    }
+
+
+    /* Profile */
+
+    .profile {
+        text-align: center;
+        padding: 35px;
+    }
+
+
+    .profile img {
+        width: 185px;
+        height: 185px;
+
+        object-fit: cover;
+
+        border-radius: 50%;
+
+        border: 7px solid white;
+
+        outline: 4px solid #d8b4fe;
+
+        box-shadow:
+            0 12px 30px rgba(126, 34, 206, 0.25);
+
+        margin-bottom: 18px;
+
+        transition: 0.4s;
+    }
+
+
+    .profile img:hover {
+        transform: scale(1.05);
+    }
+
+
+    .profile h3 {
+        color: #581c87;
+        margin-bottom: 5px;
+    }
+
+
+    .profile p {
+        color: #7c6f88;
+        margin-bottom: 10px;
+    }
+
+
+    /* Upload Button */
+
+    .upload-btn {
+        display: inline-block;
+
+        margin-top: 15px;
+
+        padding: 12px 25px;
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #c026d3,
+            #ec4899
+        );
+
+        color: white;
+
+        border-radius: 10px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+
+        box-shadow:
+            0 6px 15px rgba(192, 38, 211, 0.25);
+    }
+
+
+    .upload-btn:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 10px 22px rgba(192, 38, 211, 0.35);
+    }
+
+
+    /* Form */
+
+    .form-grid {
+        display: grid;
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 22px;
+    }
+
+
+    .form-group {
+        display: flex;
+
+        flex-direction: column;
+    }
+
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+
+    label {
+        font-weight: bold;
+
+        margin-bottom: 8px;
+
+        color: #43364d;
+    }
+
+
+    input,
+    select,
+    textarea {
+
+        width: 100%;
+
+        padding: 13px 15px;
+
+        border: 1px solid #ddd6fe;
+
+        border-radius: 11px;
+
+        font-size: 15px;
+
+        outline: none;
+
+        background: #faf9ff;
+
+        color: #33263d;
+
+        transition: 0.3s;
+    }
+
+
+    input:hover,
+    select:hover,
+    textarea:hover {
+        border-color: #c084fc;
+    }
+
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+
+        border-color: #a855f7;
+
+        background: white;
+
+        box-shadow:
+            0 0 0 4px rgba(168, 85, 247, 0.12);
+    }
+
+
+    textarea {
+        resize: vertical;
+    }
+
+
+    /* Radio and Checkbox */
+
+    .options {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 18px;
+
+        padding: 8px 0;
+    }
+
+
+    .options label {
+
+        font-weight: normal;
+
+        cursor: pointer;
+
+        padding: 7px 12px;
+
+        border-radius: 8px;
+
+        transition: 0.3s;
+    }
+
+
+    .options label:hover {
+        background: #faf5ff;
+    }
+
+
+    .options input {
+
+        width: auto;
+
+        margin-right: 6px;
+
+        accent-color: #a855f7;
+    }
+
+
+    /* Buttons */
+
+    .buttons {
+
+        margin-top: 28px;
+
+        display: flex;
+
+        gap: 15px;
+    }
+
+
+    .btn {
+
+        border: none;
+
+        padding: 14px 32px;
+
+        border-radius: 11px;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+
+    .register {
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #c026d3,
+            #ec4899
+        );
+
+        color: white;
+
+        box-shadow:
+            0 7px 18px rgba(192, 38, 211, 0.25);
+    }
+
+
+    .register:hover {
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 12px 25px rgba(192, 38, 211, 0.35);
+    }
+
+
+    .reset {
+
+        background: #f3e8ff;
+
+        color: #6b21a8;
+    }
+
+
+    .reset:hover {
+
+        background: #e9d5ff;
+
+        transform: translateY(-2px);
+    }
+
+
+    /* Tables */
+
+    .table-container {
+
+        overflow-x: auto;
+
+        border-radius: 13px;
+    }
+
+
+    table {
+
+        width: 100%;
+
+        border-collapse: collapse;
+
+        overflow: hidden;
+    }
+
+
+    th {
+
+        background: linear-gradient(
+            135deg,
+            #7c3aed,
+            #c026d3
+        );
+
+        color: white;
+
+        padding: 15px;
+
+        text-align: left;
+
+        font-size: 15px;
+    }
+
+
+    td {
+
+        padding: 14px;
+
+        border-bottom: 1px solid #eee5f5;
+    }
+
+
+    tr:nth-child(even) {
+        background: #fcfaff;
+    }
+
+
+    tr:hover {
+        background: #faf5ff;
+    }
+
+
+    td:last-child {
+
+        font-weight: bold;
+
+        color: #7c3aed;
+    }
+
+
+    /* Footer */
+
+    footer {
+
+        background: linear-gradient(
+            135deg,
+            #312e81,
+            #581c87,
+            #831843
+        );
+
+        color: white;
+
+        text-align: center;
+
+        padding: 25px;
+
+        border-radius: 18px;
+
+        margin-top: 5px;
+
+        box-shadow:
+            0 10px 25px rgba(49, 46, 129, 0.2);
+    }
+
+
+    footer p {
+        opacity: 0.9;
+    }
+
+
+    /* Responsive */
+
+    @media (max-width: 700px) {
+
+        .container {
+            width: 94%;
+            margin: 20px auto;
+        }
+
+
+        .header {
+
+            padding: 40px 20px;
+
+            border-radius: 20px;
+        }
+
+
+        .header h1 {
+            font-size: 29px;
+        }
+
+
+        .header p {
+            font-size: 15px;
+        }
+
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .form-group.full {
+            grid-column: auto;
+        }
+
+
+        .card {
+
+            padding: 22px;
+
+            border-radius: 17px;
+        }
+
+
+        .buttons {
+            flex-direction: column;
+        }
+
+
+        .btn {
+            width: 100%;
+        }
+
+
+        .profile img {
+
+            width: 150px;
+
+            height: 150px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="header-content">
+
+        <h1>🎓 Student Registration Portal</h1>
+
+        <p>
+            Welcome to XYZ Institute.
+            Please fill out the registration form below.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- STUDENT PROFILE -->
+
+<div class="card profile">
+
+    <h2>👤 Student Profile</h2>
+
+
+    <img
+        id="profileImage"
+        src="./istockphoto-1487465664-2048x2048.jpg"
+        alt="Student Profile Image"
+    >
+
+
+    <h3>Student Photograph</h3>
+
+
+    <p>
+        Select a profile photograph from your device.
+    </p>
+
+
+    <label
+        for="imageUpload"
+        class="upload-btn"
+    >
+        📷 Choose Profile Image
+    </label>
+
+
+    <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        hidden
+    >
+
+</div>
+
+
+
+<!-- REGISTRATION FORM -->
+
+<div class="card">
+
+    <h2>📝 Student Registration Form</h2>
+
+
+    <form>
+
+
+        <div class="form-grid">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                >
+
+            </div>
+
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                >
+
+            </div>
+
+
+
+            <!-- PHONE -->
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                >
+
+            </div>
+
+
+
+            <!-- DOB -->
+
+            <div class="form-group">
+
+                <label for="dob">
+                    Date of Birth
+                </label>
+
+                <input
+                    type="date"
+                    id="dob"
+                    name="dob"
+                >
+
+            </div>
+
+
+
+            <!-- GENDER -->
+
+            <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+
+                <div class="options">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="male"
+                        >
+
+                        Male
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="female"
+                        >
+
+                        Female
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="other"
+                        >
+
+                        Other
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SKILLS -->
+
+            <div class="form-group full">
+
+                <label>
+                    Skills
+                </label>
+
+
+                <div class="options">
+
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="html"
+                        >
+
+                        HTML
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="css"
+                        >
+
+                        CSS
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="javascript"
+                        >
+
+                        JavaScript
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="react"
+                        >
+
+                        React
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COURSE -->
+
+            <div class="form-group">
+
+                <label for="course">
+                    Select Course
+                </label>
+
+
+                <select
+                    id="course"
+                    name="course"
+                >
+
+                    <option value="">
+                        -- Select Course --
+                    </option>
+
+                    <option value="html">
+                        HTML
+                    </option>
+
+                    <option value="css">
+                        CSS
+                    </option>
+
+                    <option value="javascript">
+                        JavaScript
+                    </option>
+
+                    <option value="react">
+                        React
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- QUALIFICATION -->
+
+            <div class="form-group">
+
+                <label for="qualification">
+                    Highest Qualification
+                </label>
+
+
+                <select
+                    id="qualification"
+                    name="qualification"
+                >
+
+                    <option value="">
+                        -- Select Qualification --
+                    </option>
+
+                    <option value="10th">
+                        10th
+                    </option>
+
+                    <option value="12th">
+                        12th
+                    </option>
+
+                    <option value="diploma">
+                        Diploma
+                    </option>
+
+                    <option value="graduation">
+                        Graduation
+                    </option>
+
+                    <option value="post-graduation">
+                        Post Graduation
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- LEARNING MODE -->
+
+            <div class="form-group">
+
+                <label>
+                    Preferred Learning Mode
+                </label>
+
+
+                <div class="options">
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="learning_mode"
+                            value="online"
+                        >
+
+                        Online
+
+                    </label>
+
+
+                    <label>
+
+                        <input
+                            type="radio"
+                            name="learning_mode"
+                            value="offline"
+                        >
+
+                        Offline
+
+                    </label>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CITY -->
+
+            <div class="form-group">
+
+                <label for="city">
+                    City
+                </label>
+
+
+                <select
+                    id="city"
+                    name="city"
+                >
+
+                    <option value="">
+                        -- Select City --
+                    </option>
+
+                    <option value="delhi">
+                        Delhi
+                    </option>
+
+                    <option value="gurgaon">
+                        Gurgaon
+                    </option>
+
+                    <option value="noida">
+                        Noida
+                    </option>
+
+                    <option value="ghaziabad">
+                        Ghaziabad
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div class="form-group full">
+
+                <label for="address">
+                    Address
+                </label>
+
+
+                <textarea
+                    id="address"
+                    name="address"
+                    rows="5"
+                    placeholder="Enter your complete address"
+                ></textarea>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="buttons">
+
+
+            <button
+                type="submit"
+                class="btn register"
+            >
+                ✓ Register
+            </button>
+
+
+            <button
+                type="reset"
+                class="btn reset"
+            >
+                ↻ Reset
+            </button>
+
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+
+<!-- COURSE DETAILS -->
+
+<div class="card">
+
+    <h2>📚 Course Details</h2>
+
+
+    <div class="table-container">
+
+
+        <table>
+
+
+            <tr>
+
+                <th>
+                    Course
+                </th>
+
+                <th>
+                    Duration
+                </th>
+
+                <th>
+                    Fees
+                </th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    HTML
+                </td>
+
+                <td>
+                    1 Month
+                </td>
+
+                <td>
+                    ₹2,000
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    CSS
+                </td>
+
+                <td>
+                    1 Month
+                </td>
+
+                <td>
+                    ₹2,500
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    JavaScript
+                </td>
+
+                <td>
+                    2 Months
+                </td>
+
+                <td>
+                    ₹5,000
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    React
+                </td>
+
+                <td>
+                    2 Months
+                </td>
+
+                <td>
+                    ₹6,000
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- CLASS SCHEDULE -->
+
+<div class="card">
+
+    <h2>🗓️ Class Schedule</h2>
+
+
+    <div class="table-container">
+
+
+        <table>
+
+
+            <tr>
+
+                <th>
+                    Day
+                </th>
+
+                <th>
+                    Subject
+                </th>
+
+                <th>
+                    Time
+                </th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Monday
+                </td>
+
+                <td>
+                    HTML
+                </td>
+
+                <td>
+                    10:00 AM
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Tuesday
+                </td>
+
+                <td>
+                    CSS
+                </td>
+
+                <td>
+                    10:00 AM
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Wednesday
+                </td>
+
+                <td>
+                    JavaScript
+                </td>
+
+                <td>
+                    11:00 AM
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Thursday
+                </td>
+
+                <td>
+                    React
+                </td>
+
+                <td>
+                    11:00 AM
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- STUDENT PERFORMANCE -->
+
+<div class="card">
+
+    <h2>📊 Student Performance</h2>
+
+
+    <div class="table-container">
+
+
+        <table>
+
+
+            <tr>
+
+                <th>
+                    Subject
+                </th>
+
+                <th>
+                    Marks
+                </th>
+
+                <th>
+                    Grade
+                </th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    HTML
+                </td>
+
+                <td>
+                    85
+                </td>
+
+                <td>
+                    A
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    CSS
+                </td>
+
+                <td>
+                    78
+                </td>
+
+                <td>
+                    B+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    JavaScript
+                </td>
+
+                <td>
+                    92
+                </td>
+
+                <td>
+                    A+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    React
+                </td>
+
+                <td>
+                    88
+                </td>
+
+                <td>
+                    A
+                </td>
+
+            </tr>
+
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 XYZ Institute. All Rights Reserved.
+    </p>
+
+</footer>
+```
+
+</div>
+
+<!-- PROFILE IMAGE JAVASCRIPT -->
+
+<script>
+
+    const imageUpload =
+        document.getElementById("imageUpload");
+
+    const profileImage =
+        document.getElementById("profileImage");
+
+
+    imageUpload.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+
+        if (file) {
+
+            // Check if selected file is an image
+
+            if (!file.type.startsWith("image/")) {
+
+                alert("Please select a valid image file.");
+
+                this.value = "";
+
+                return;
+            }
+
+
+            const reader = new FileReader();
+
+
+            reader.onload = function (event) {
+
+                profileImage.src =
+                    event.target.result;
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
+
+    });
+
+</script>
+
+</body>
+
+</html>
